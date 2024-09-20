@@ -6,10 +6,13 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true
   },
-  modules: ['@nuxtjs/prismic', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/prismic', '@nuxtjs/tailwindcss', "@nuxtjs/device"],
   prismic: {
     endpoint: "https://sandbox-sam.cdn.prismic.io/api/v2",
     linkResolver: "~/prismic/linkResolver",
+  },
+  imports: {
+    dirs: ["composables", "composables/**", "types/*.d.ts"],
   },
   css: [
     "@/assets/css/main.css"
