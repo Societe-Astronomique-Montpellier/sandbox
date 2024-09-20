@@ -3,14 +3,13 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   ssr: true,
-
   typescript: {
     typeCheck: true
   },
-
   modules: ['@nuxtjs/prismic', '@nuxtjs/tailwindcss'],
   prismic: {
-    endpoint: "https://sandbox-sam.cdn.prismic.io/api/v2"
+    endpoint: "https://sandbox-sam.cdn.prismic.io/api/v2",
+    linkResolver: "~/prismic/linkResolver",
   },
   css: [
     "@/assets/css/main.css"
