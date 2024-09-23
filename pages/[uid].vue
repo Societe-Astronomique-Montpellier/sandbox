@@ -21,7 +21,7 @@ const { data: article, error } = useAsyncData(
   async () => await prismic.client.getByUID("article", uid, { lang: locale.value })
 );
 
-// const richTextSerializer = useRichTextSerializer();
+const richTextSerializer = useRichTextSerializer();
 
 const formatedDate = useState("formatedDate", () => useFormatIntoFrenchDate(article.value?.last_publication_date, "short"));
 // const imageBanner = computed<
