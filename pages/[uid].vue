@@ -15,10 +15,10 @@ const prismic = usePrismic();
 const route = useRoute();
 const { locale } = useI18n();
 
-const {  uid } = route.params as { uid: string; };
+const { uid } = route.params as { uid: string; };
 const { data: article, error } = useAsyncData(
   uid,
-  async () => await prismic.client.getByUID("article", uid, { lang: locale.value })
+  async () => await prismic.client.getByUID("article", uid, { lang: 'fr-fr'})
 );
 
 const richTextSerializer = useRichTextSerializer();
@@ -28,30 +28,29 @@ const formatedDate = useState("formatedDate", () => useFormatIntoFrenchDate(arti
 //     ImageField | FilledImageFieldImage | EmptyImageFieldImage | undefined
 // >(() => useBannerImage(article.value?.data.image_banner, isMobile));
 //
-// const metaTitle: ComputedRef<string> = computed<string>(() => {
-//   return isFilled.keyText(article.value?.data.meta_title)
-//       ? `${article.value?.data.meta_title}`
-//       : `${article.value?.data.title}`;
-// });
-// const metaDescription: ComputedRef<string> = computed<string>(
-//     () => `${article.value?.data.meta_description}`,
-// );
-// const metaImage = computed(() => asImageSrc(article.value?.data.meta_image));
-//
-// useSeoMeta({
-//   title: metaTitle,
-//   description: metaDescription,
-//   ogTitle: (): string => unref(metaTitle),
-//   ogDescription: (): string => unref(metaDescription),
-//   ogImage: (): any => unref(metaImage),
-// });
+const metaTitle: ComputedRef<string> = computed<string>(() => {
+  return isFilled.keyText(article.value?.data.meta_title)
+      ? `${article.value?.data.meta_title}`
+      : `${article.value?.data.title}`;
+});
+const metaDescription: ComputedRef<string> = computed<string>(
+    () => `${article.value?.data.meta_description}`,
+);
+const metaImage = computed(() => asImageSrc(article.value?.data.meta_image));
+
+useSeoMeta({
+  title: metaTitle,
+  description: metaDescription,
+  ogTitle: (): string => unref(metaTitle),
+  ogDescription: (): string => unref(metaDescription),
+  ogImage: (): any => unref(metaImage),
+});
 </script>
 
 <template>
-  <pre>{{ article }}</pre>
   <div v-if="article" class="max-w-screen-lg w-full mx-auto relative mb-2">
     <h1 class="text-gray-900 font-bold text-4xl my-8 text-center">
-      {{ article?.data.title }}
+      {{ prismic.asText(article?.data.title) }}
     </h1>
 <!--    <HeaderPage :image="imageBanner" />-->
     <div class="max-w-3xl mx-auto">
@@ -60,10 +59,10 @@ const formatedDate = useState("formatedDate", () => useFormatIntoFrenchDate(arti
       >
         <div class="bg-white relative top-0 -mt-32 p-5 sm:p-10 leading-normal">
           <h2
-              v-if="isFilled.keyText(article.data.subtitle)"
+              v-if="isFilled.richText(article.data.subtitle)"
               class="text-gray-900 font-semibold text-2xl mb-2"
           >
-            {{ article?.data.subtitle }}
+            {{ prismic.asText(article?.data.subtitle) }}
           </h2>
           <Icon v-show="false" name="material-symbols:arrow-right-alt" />
           <div class="my-4 grid gap-4 px-1">
