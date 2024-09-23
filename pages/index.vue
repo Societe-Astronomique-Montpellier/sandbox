@@ -1,18 +1,22 @@
 <script setup lang="ts">
 const prismic = usePrismic();
 
-definePageMeta({
-  layout: "page",
-});
-
 const { data: home } = useAsyncData('home', async () => await prismic.client.getAllByType('article', { lang: 'fr-fr'}))
 </script>
 
 <template>
   <div v-if="home">
-    <prismic-link
-      :field=""
-    ></prismic-link>
+    <ul>
+      <li>
+        <prismic-link
+            v-for="(item, index) in home"
+            :field="item"
+        >
+          {{ prismic.asText(item.data.title) }}
+        </prismic-link>
+      </li>
+    </ul>
+
   </div>
 </template>
 

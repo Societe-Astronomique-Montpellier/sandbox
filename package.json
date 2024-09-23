@@ -10,15 +10,25 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/device": "^3.2.4",
+    "@mdi/font": "^7.4.47",
+    "@nuxt/icon": "^1.4.5",
+    "@nuxtjs/i18n": "^8.5.5",
     "@nuxtjs/prismic": "^3.4.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@prismicio/helpers": "^2.3.9",
+    "@prismicio/richtext": "^2.1.5",
+    "@types/vue": "^2.0.0",
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@nuxt/types": "^2.18.1",
+    "@nuxtjs/device": "^3.1.1",
+    "@nuxtjs/prismic": "^3.3.2",
+    "@nuxt/typescript-build": "^3.0.2",
     "typescript": "^5.6.2",
-    "vue-tsc": "^2.1.6"
+    "vue-tsc": "^2.1.6",
+    "tailwindcss": "^3.4.4"
   }
 }

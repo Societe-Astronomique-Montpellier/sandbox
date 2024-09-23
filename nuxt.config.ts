@@ -6,9 +6,9 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true
   },
-  modules: ['@nuxtjs/prismic', '@nuxtjs/tailwindcss', "@nuxtjs/device"],
+  modules: ['@nuxtjs/prismic', '@nuxtjs/tailwindcss', "@nuxtjs/device", "@nuxtjs/i18n", "@nuxt/icon"],
   prismic: {
-    endpoint: "https://sandbox-sam.cdn.prismic.io/api/v2",
+    endpoint: "sandbox-sam",
     linkResolver: "~/prismic/linkResolver",
   },
   imports: {
@@ -21,6 +21,9 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
     }
+  },
+  i18n: {
+
   },
   app: {
     head: {
