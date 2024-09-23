@@ -12,51 +12,43 @@ definePageMeta({
 });
 
 const prismic = usePrismic();
-const { isMobile } = useDevice();
 const route = useRoute();
-const { t, locale } = useI18n();
+const { locale } = useI18n();
 
 const {  uid } = route.params as { uid: string; };
 const { data: article, error } = useAsyncData(
   uid,
-  async () =>
-    await prismic.client.getByUID(
-      "article",
-      uid,
-      { lang: locale.value },
-    ),
+  async () => await prismic.client.getByUID("article", uid, { lang: locale.value })
 );
 
+// const richTextSerializer = useRichTextSerializer();
 
-const richTextSerializer = useRichTextSerializer();
-
-const formatedDate = useState("formatedDate", () => useFormatIntoFrenchDate(article.value?.last_publication_date, "short")
-);
-const imageBanner = computed<
-    ImageField | FilledImageFieldImage | EmptyImageFieldImage | undefined
->(() => useBannerImage(article.value?.data.image_banner, isMobile));
-
-const metaTitle: ComputedRef<string> = computed<string>(() => {
-  return isFilled.keyText(article.value?.data.meta_title)
-      ? `${article.value?.data.meta_title}`
-      : `${article.value?.data.title}`;
-});
-const metaDescription: ComputedRef<string> = computed<string>(
-    () => `${article.value?.data.meta_description}`,
-);
-const metaImage = computed(() => asImageSrc(article.value?.data.meta_image));
-
-useSeoMeta({
-  title: metaTitle,
-  description: metaDescription,
-  ogTitle: (): string => unref(metaTitle),
-  ogDescription: (): string => unref(metaDescription),
-  ogImage: (): any => unref(metaImage),
-});
+const formatedDate = useState("formatedDate", () => useFormatIntoFrenchDate(article.value?.last_publication_date, "short"));
+// const imageBanner = computed<
+//     ImageField | FilledImageFieldImage | EmptyImageFieldImage | undefined
+// >(() => useBannerImage(article.value?.data.image_banner, isMobile));
+//
+// const metaTitle: ComputedRef<string> = computed<string>(() => {
+//   return isFilled.keyText(article.value?.data.meta_title)
+//       ? `${article.value?.data.meta_title}`
+//       : `${article.value?.data.title}`;
+// });
+// const metaDescription: ComputedRef<string> = computed<string>(
+//     () => `${article.value?.data.meta_description}`,
+// );
+// const metaImage = computed(() => asImageSrc(article.value?.data.meta_image));
+//
+// useSeoMeta({
+//   title: metaTitle,
+//   description: metaDescription,
+//   ogTitle: (): string => unref(metaTitle),
+//   ogDescription: (): string => unref(metaDescription),
+//   ogImage: (): any => unref(metaImage),
+// });
 </script>
 
 <template>
-  <pre>{{ uid }}</pre>
+  <pre>{{ article }}</pre>
   <div v-if="article" class="max-w-screen-lg w-full mx-auto relative mb-2">
     <h1 class="text-gray-900 font-bold text-4xl my-8 text-center">
       {{ article?.data.title }}
@@ -87,7 +79,7 @@ useSeoMeta({
                     id="span_author"
                     class="font-medium hover:text-gray-900 transition duration-500 ease-in-out"
                 >
-                  {{ $t("page.author") }} {{ article?.data.author }}
+                  Auteur: {{ article?.data.author }}
                 </span>
                 le
                 <span
