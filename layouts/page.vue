@@ -1,9 +1,5 @@
 <script setup lang="ts">
 // add header + footer
-
-const { t } = useI18n();
-const { isMobile } = useDevice();
-
 </script>
 
 <template>

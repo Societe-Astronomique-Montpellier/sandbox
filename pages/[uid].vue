@@ -13,7 +13,7 @@ definePageMeta({
 
 const prismic = usePrismic();
 const route = useRoute();
-const { locale } = useI18n();
+const { isMobile } = useDevice();
 
 const HeaderPage = defineAsyncComponent(
     () => import("@/components/HeaderPage.vue"),
