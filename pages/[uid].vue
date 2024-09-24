@@ -15,6 +15,10 @@ const prismic = usePrismic();
 const route = useRoute();
 const { locale } = useI18n();
 
+const HeaderPage = defineAsyncComponent(
+    () => import("@/components/HeaderPage.vue"),
+);
+
 const { uid } = route.params as { uid: string; };
 const { data: article, error } = useAsyncData(
   uid,
@@ -24,10 +28,10 @@ const { data: article, error } = useAsyncData(
 const richTextSerializer = useRichTextSerializer();
 
 const formatedDate = useState("formatedDate", () => useFormatIntoFrenchDate(article.value?.last_publication_date, "short"));
-// const imageBanner = computed<
-//     ImageField | FilledImageFieldImage | EmptyImageFieldImage | undefined
-// >(() => useBannerImage(article.value?.data.image_banner, isMobile));
-//
+const imageBanner = computed<
+    ImageField | FilledImageFieldImage | EmptyImageFieldImage | undefined
+>(() => useBannerImage(article.value?.data.image_banner, isMobile));
+
 const metaTitle: ComputedRef<string> = computed<string>(() => {
   return isFilled.keyText(article.value?.data.meta_title)
       ? `${article.value?.data.meta_title}`
@@ -52,7 +56,7 @@ useSeoMeta({
     <h1 class="text-gray-900 font-bold text-4xl my-8 text-center">
       {{ prismic.asText(article?.data.title) }}
     </h1>
-<!--    <HeaderPage :image="imageBanner" />-->
+    <HeaderPage :image="imageBanner" />
     <div class="max-w-3xl mx-auto">
       <div
           class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal"
